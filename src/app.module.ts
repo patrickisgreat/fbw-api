@@ -28,6 +28,7 @@ import { GnssModule } from './gnss/gnss.module';
 import { CpdlcController } from './cpdlc/cpdlc.controller';
 import { CpdlcService } from './cpdlc/cpdlc.service';
 import { NotFoundExceptionFilter } from './utilities/not-found.filter';
+import { AcmsModule } from './acms/acms.module';
 
 @Module({
     imports: [
@@ -117,6 +118,7 @@ import { NotFoundExceptionFilter } from './utilities/not-found.filter';
         GitVersionsModule,
         ChartsModule,
         GnssModule,
+        AcmsModule,
     ],
     controllers: [
         AppController,
