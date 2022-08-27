@@ -36,7 +36,7 @@ export class FaultMessage {
     @ApiProperty({ description: 'Identifiers', example: '[ID 1, ID 2]' })
     identifiers: string;
 
-    @ManyToOne(() => AcmsMessage, (message) => message.flightNumber, { eager: true })
+    @ManyToOne(() => AcmsMessage)
     @JoinColumn()
     acmsFlight: AcmsMessage;
 

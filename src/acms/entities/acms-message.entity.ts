@@ -41,7 +41,7 @@ export class AcmsMessage {
     messageSubType?: string;
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    @OneToMany((type) => FaultMessage, (faultMessage) => faultMessage.acmsFlight, { eager: true })
+    @OneToMany(() => FaultMessage, (message) => message.id)
     @ApiProperty({ description: 'The ACMS Messages associated faults', type: FaultMessage })
     public faultMessages!: FaultMessage[]
 }
