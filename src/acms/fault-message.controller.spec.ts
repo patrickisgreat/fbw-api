@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AcmsMessageController } from './acms-message.controller';
+import { FaultMessageController } from './fault-message.controller';
 import { AcmsService } from './acms.service';
 
-describe('AcmsMessageController', () => {
-    let controller: AcmsMessageController;
+describe('FaultMessageController', () => {
+    let controller: FaultMessageController;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            controllers: [AcmsMessageController],
+            controllers: [FaultMessageController],
             providers: [AcmsService],
         }).compile();
 
-        controller = module.get<AcmsMessageController>(AcmsMessageController);
+        controller = module.get<FaultMessageController>(FaultMessageController);
     });
 
     it('should be defined', () => {

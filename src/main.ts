@@ -39,8 +39,8 @@ async function bootstrap() {
 
     // Swagger
     const options = new DocumentBuilder()
-        .setTitle('FlyByWire Simulations API')
-        .setDescription('The FlyByWire Simulations API description')
+        .setTitle('BeefSupreme Simulations API')
+        .setDescription('Now with more Beef than Ever!!')
         .setVersion('1.0')
         .addSecurity('jwt', {
             type: 'http',
