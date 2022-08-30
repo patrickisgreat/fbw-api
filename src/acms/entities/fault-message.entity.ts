@@ -36,11 +36,15 @@ export class FaultMessage {
     @ApiProperty({ description: 'Identifiers', example: '[ID 1, ID 2]' })
     identifiers: string;
 
-    @ManyToOne(() => AcmsMessage)
-    @JoinColumn()
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    @ManyToOne((type) => AcmsMessage, (message) => message.faultMessages, { eager: true })
     acmsFlight: AcmsMessage;
 
     @Column()
-    @ApiProperty({ description: 'Associated MSFS LVAR', example: 'A:32NX_BRAKES_HOT' })
-    lVar: string;
+    @ApiProperty({ description: 'Associated MSFS LVAR name', example: 'A:32NX_BRAKES_HOT' })
+    lVarName: string;
+
+    @Column()
+    @ApiProperty({ description: 'Associated MSFS LVAR value', example: true })
+    lVarValue: boolean;
 }

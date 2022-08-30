@@ -19,6 +19,18 @@ export class AcmsService {
 
     // ACMS MESSAGES
     async createAcmsMessage(acmsMessage: CreateAcmMessageDto) {
+        // we'll start with one to not get stuck
+        // TODO: make this more flexible -- multiple entities at once
+        if (acmsMessage.faultMessages.length > 0) {
+            // new up a fault message for each message in the array
+            const newFaultMessages = acmsMessage.faultMessages.map((message) => this.faultMessageRepository.create(message));
+            // new up containing ACMS message
+            const newAcmsMessage = this.acmsMessageRepository.create(acmsMessage);
+            // set acms faultMessages array with new instances
+            newAcmsMessage.faultMessages = newFaultMessages;
+            // save
+            return this.acmsMessageRepository.save(newAcmsMessage);
+        }
         return this.acmsMessageRepository.save(acmsMessage);
     }
 

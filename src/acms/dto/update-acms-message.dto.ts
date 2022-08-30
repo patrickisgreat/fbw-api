@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional } from 'class-validator';
+import { FaultMessage } from '../entities/fault-message.entity';
 
 export class UpdateAcmsMessageDto {
     @IsNotEmpty()
@@ -33,4 +34,8 @@ export class UpdateAcmsMessageDto {
     @IsOptional()
     @ApiProperty({ description: 'Message Sub Type', example: 'FM' })
     messageSubType: string;
+
+    @IsOptional()
+    @ApiProperty({ description: 'Fault Messages', type: FaultMessage })
+    faultMessages: FaultMessage[];
 }

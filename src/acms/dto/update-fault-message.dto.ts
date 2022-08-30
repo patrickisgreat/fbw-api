@@ -3,8 +3,12 @@ import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UpdateFaultMessageDto {
     @IsOptional()
-    @ApiProperty({ description: 'Associated MSFS LVAR', example: 'L:A32NX_BRAKES_HOT' })
-    lVar: string;
+    @ApiProperty({ description: 'Associated MSFS LVAR Name', example: 'L:A32NX_BRAKES_HOT' })
+    lVarName: string;
+
+    @IsOptional()
+    @ApiProperty({ description: 'Associated MSFS LVAR value', example: false })
+    lVarValue: boolean;
 
     @IsNotEmpty()
     @ApiProperty({ description: 'Date the Fault Occurred' })
