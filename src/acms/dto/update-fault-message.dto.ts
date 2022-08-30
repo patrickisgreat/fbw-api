@@ -26,6 +26,18 @@ export class UpdateFaultMessageDto {
     @ApiProperty({ description: 'Flight Phase where Fault Occurred', example: 5 })
     flightPhase: number;
 
+    @IsNotEmpty()
+    @ApiProperty({ description: 'Flight Number', example: 'DAL213' })
+    flightNumber: string;
+
+    @IsNotEmpty()
+    @ApiProperty({ description: 'Tail Number', example: 'N981W' })
+    tailNumber: string;
+
+    @IsNotEmpty()
+    @ApiProperty({ description: 'Text of Fault', example: 'SNAKES ON PLANE' })
+    text: string;
+
     @IsOptional()
     @ApiProperty({ description: 'Type of Fault', example: 'INTERMITTENT' })
     type: string;

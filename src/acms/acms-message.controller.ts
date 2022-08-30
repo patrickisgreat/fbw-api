@@ -55,9 +55,9 @@ export class AcmsMessageController {
     @ApiBody({ description: 'The updated message', type: UpdateAcmsMessageDto })
     @ApiOkResponse({ description: 'The message got updated', type: AcmsMessage })
     @ApiNotFoundResponse({ description: 'The message with the given ID could not be found' })
-    @Put(':id')
-    update(@Param('id') id: string, @Body() updatedAcmsMessage: UpdateAcmsMessageDto) {
-        return this.acmsService.updateAcmsMessage(+id, updatedAcmsMessage);
+    @Put(':flightNumber')
+    update(@Param('flightNumber') flightNumber: string, @Body() updatedAcmsMessage: UpdateAcmsMessageDto) {
+        return this.acmsService.updateAcmsMessage(flightNumber, updatedAcmsMessage);
     }
 
     @ApiOkResponse({ description: 'The message got deleted FOREVER' })

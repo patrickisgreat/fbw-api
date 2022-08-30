@@ -3,6 +3,10 @@ import { IsNotEmpty, IsOptional } from 'class-validator';
 import { FaultMessage } from '../entities/fault-message.entity';
 
 export class UpdateAcmsMessageDto {
+    @IsOptional()
+    @ApiProperty({ description: 'Database ID' })
+    id: string;
+
     @IsNotEmpty()
     @ApiProperty({ description: 'Date the Message Was Sent' })
     transmissionDate: Date;
@@ -22,6 +26,10 @@ export class UpdateAcmsMessageDto {
     @IsNotEmpty()
     @ApiProperty({ description: 'Flight Number', example: 'DAL123' })
     flightNumber: string;
+
+    @IsNotEmpty()
+    @ApiProperty({ description: 'Tail Number', example: 'N981W' })
+    tailNumber: string;
 
     @IsOptional()
     @ApiProperty({ description: 'Raw Data', example: 'test' })

@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { CreateAcmMessageDto } from './dto/create-acms-message.dto';
 import { UpdateAcmsMessageDto } from './dto/update-acms-message.dto';
 import { AcmsMessage } from './entities/acms-message.entity';
@@ -10,6 +10,8 @@ import { UpdateFaultMessageDto } from './dto/update-fault-message.dto';
 
 @Injectable()
 export class AcmsService {
+    private readonly logger = new Logger(AcmsService.name);
+
     constructor(
         @InjectRepository(AcmsMessage)
         private readonly acmsMessageRepository: Repository<AcmsMessage>,
@@ -42,8 +44,32 @@ export class AcmsService {
         return this.acmsMessageRepository.findOne(id);
     }
 
-    async updateAcmsMessage(id: number, updatedAcmsMessage: UpdateAcmsMessageDto) {
-        return this.acmsMessageRepository.update(id, updatedAcmsMessage);
+    async updateAcmsMessage(flightNumber: string, updatedAcmsMessage: UpdateAcmsMessageDto) {
+        const fetchedMessage = await this.acmsMessageRepository.findOne({ where: { flightNumber }, relations: ['faultMessages'] });
+
+        if (!fetchedMessage) {
+            const message = `ACMS Messages with Flight number ${flightNumber} Doesn't exist`;
+            this.logger.error(message);
+            throw new HttpException(message, 404);
+        }
+
+        updatedAcmsMessage.id = fetchedMessage.id;
+
+        const updatedMessage = await this.acmsMessageRepository.preload(updatedAcmsMessage);
+
+        if (updatedMessage.faultMessages) {
+            // TODO: this probably doesn't need to be a create
+            // need to check for the foreign key or other keys
+            const faultMsgsToUpdate = updatedAcmsMessage.faultMessages.map(
+                (message) => this.faultMessageRepository.create(message),
+            );
+
+            updatedMessage.faultMessages = faultMsgsToUpdate;
+
+            return this.acmsMessageRepository.save(updatedMessage);
+        }
+
+        return this.acmsMessageRepository.save(updatedMessage);
     }
 
     async removeAcmsMessage(id: number): Promise<void> {

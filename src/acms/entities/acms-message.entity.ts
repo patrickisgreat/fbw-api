@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, OneToMany, JoinTable } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { FaultMessage } from './fault-message.entity';
 
@@ -29,6 +29,10 @@ export class AcmsMessage {
     flightNumber: string;
 
     @Column()
+    @ApiProperty({ description: 'Tail Number', example: 'N981W' })
+    tailNumber: string;
+
+    @Column()
     @ApiProperty({ description: 'Raw Data', example: 'FSDFJEIOWJEOWIJFOEIWJFOWIEJOFIEWJo' })
     rawData: string;
 
@@ -41,7 +45,7 @@ export class AcmsMessage {
     messageSubType?: string;
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    @OneToMany((type) => FaultMessage, (message: FaultMessage) => message.acmsFlight, { cascade: true })
+    @OneToMany((type) => FaultMessage, (message: FaultMessage) => message.acmsFlight, { cascade: true, eager: true })
     @ApiProperty({ description: 'The ACMS Messages associated faults', type: FaultMessage })
     faultMessages?: FaultMessage[]
 }
