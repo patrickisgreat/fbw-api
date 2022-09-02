@@ -29,6 +29,14 @@ export class FaultMessage {
     c2Afect: boolean;
 
     @Column()
+    @ApiProperty({ description: 'Status of the communication', example: 'Received, Failed, InFlight' })
+    ComStatus: string;
+
+    @Column()
+    @ApiProperty({ description: 'Status of the communication', example: 'Received, Failed, InFlight' })
+    Direction: string;
+
+    @Column()
     @ApiProperty({ description: 'Class Number', example: 1 })
     classNumber: number;
 
@@ -49,7 +57,7 @@ export class FaultMessage {
     text: string;
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    @ManyToOne((type) => AcmsMessage, (message) => message.faultMessages)
+    @ManyToOne((type) => AcmsMessage, (message) => message.faultMessages, { onDelete: 'CASCADE' })
     acmsFlight: AcmsMessage;
 
     @Column()

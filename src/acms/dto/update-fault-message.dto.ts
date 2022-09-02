@@ -3,6 +3,10 @@ import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UpdateFaultMessageDto {
     @IsOptional()
+    @ApiProperty({ description: 'Database ID' })
+    id: string;
+
+    @IsOptional()
     @ApiProperty({ description: 'Associated MSFS LVAR Name', example: 'L:A32NX_BRAKES_HOT' })
     lVarName: string;
 
@@ -21,6 +25,14 @@ export class UpdateFaultMessageDto {
     @IsOptional()
     @ApiProperty({ description: 'Source of Fault', example: 'BMC 2' })
     source: string;
+
+    @IsNotEmpty()
+    @ApiProperty({ description: 'Status of the communication', example: 'Received, Failed, InFlight' })
+    ComStatus: string;
+
+    @IsNotEmpty()
+    @ApiProperty({ description: 'Direction of the Com LINK', example: 'Uplink, Downlink' })
+    Direction: string;
 
     @IsNotEmpty()
     @ApiProperty({ description: 'Flight Phase where Fault Occurred', example: 5 })

@@ -36,7 +36,7 @@ export class FaultMessageController {
         return this.acmsService.createFaultMessage(newFaultMessage);
     }
 
-    @Get('_count')
+    @Get()
     @CacheTTL(15)
     @ApiOkResponse({ description: 'All Existing Fault Messages', type: FaultMessage })
     getAll() {
@@ -57,7 +57,7 @@ export class FaultMessageController {
     @ApiNotFoundResponse({ description: 'The message with the given ID could not be found' })
     @Put(':id')
     update(@Param('id') id: string, @Body() updatedFaultMessage: UpdateFaultMessageDto) {
-        return this.acmsService.updateFaultMessage(+id, updatedFaultMessage);
+        return this.acmsService.updateFaultMessage(id, updatedFaultMessage);
     }
 
     @ApiOkResponse({ description: 'The FAULT message got deleted FOREVER' })

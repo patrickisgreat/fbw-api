@@ -2,6 +2,20 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, OneToMany } f
 import { ApiProperty } from '@nestjs/swagger';
 import { FaultMessage } from './fault-message.entity';
 
+export enum AcmsMessageStatus {
+    Open,
+    Sending,
+    Sent,
+    Received,
+    Failed,
+    New,
+}
+
+export enum AcmsMessageDirection {
+    Uplink,
+    Downlink
+}
+
 @Entity()
 export class AcmsMessage {
     @PrimaryGeneratedColumn('uuid')
@@ -25,6 +39,14 @@ export class AcmsMessage {
     aircraftType: string;
 
     @Column()
+    @ApiProperty({ description: 'Status of the communication', example: 'Received, Failed, InFlight' })
+    ComStatus: string;
+
+    @Column()
+    @ApiProperty({ description: 'Status of the communication', example: 'Received, Failed, InFlight' })
+    Direction: string;
+
+    @Column()
     @ApiProperty({ description: 'Flight Number', example: 'DAL123' })
     flightNumber: string;
 
@@ -45,7 +67,14 @@ export class AcmsMessage {
     messageSubType?: string;
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    @OneToMany((type) => FaultMessage, (message: FaultMessage) => message.acmsFlight, { cascade: true, eager: true })
+    @OneToMany(
+        () => FaultMessage, (message: FaultMessage) => message.acmsFlight,
+        {
+            cascade: true,
+            eager: true,
+            onDelete: 'CASCADE',
+        },
+    )
     @ApiProperty({ description: 'The ACMS Messages associated faults', type: FaultMessage })
     faultMessages?: FaultMessage[]
 }

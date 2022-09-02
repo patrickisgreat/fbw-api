@@ -28,6 +28,14 @@ export class UpdateAcmsMessageDto {
     flightNumber: string;
 
     @IsNotEmpty()
+    @ApiProperty({ description: 'Status of the communication', example: 'Received, Failed, InFlight' })
+    ComStatus: string;
+
+    @IsNotEmpty()
+    @ApiProperty({ description: 'Status of the communication', example: 'Received, Failed, InFlight' })
+    Direction: string;
+
+    @IsNotEmpty()
     @ApiProperty({ description: 'Tail Number', example: 'N981W' })
     tailNumber: string;
 

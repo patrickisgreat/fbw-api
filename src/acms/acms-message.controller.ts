@@ -36,20 +36,25 @@ export class AcmsMessageController {
         return this.acmsService.createAcmsMessage(createAcmsMessage);
     }
 
-    @Get('_count')
+    @Get()
     @CacheTTL(15)
     @ApiOkResponse({ description: 'All Existing ACMS Messages for all flights', type: AcmsMessage })
     getAll() {
         return this.acmsService.getAllAcmsMessages();
     }
 
-    @Get(':id')
+    @Get(':flightNumber/:tailNumber/:status/:direction')
     @CacheTTL(15)
     @ApiParam({ name: 'id', description: 'The ACMS message ID', example: '6571f19e-21f7-4080-b239-c9d649347101' })
     @ApiOkResponse({ description: 'The message with the given ID was found', type: AcmsMessage })
     @ApiNotFoundResponse({ description: 'The message with the given ID could not be found' })
-    getOne(@Param('id') id: string) {
-        return this.acmsService.getOneAcmsMessage(+id);
+    getOne(
+        @Param('flightNumber') flightNumber: string,
+        @Param('tailNumber') tailNumber: string,
+        @Param('status') status: string,
+        @Param('direction') direction: string,
+    ) {
+        return this.acmsService.getOneAcmsMessage(flightNumber, tailNumber, status, direction);
     }
 
     @ApiBody({ description: 'The updated message', type: UpdateAcmsMessageDto })
@@ -64,6 +69,6 @@ export class AcmsMessageController {
     @ApiNotFoundResponse({ description: 'The message with the given ID could not be found' })
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.acmsService.removeAcmsMessage(+id);
+        return this.acmsService.removeAcmsMessage(id);
     }
 }
