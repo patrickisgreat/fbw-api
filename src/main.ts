@@ -6,10 +6,10 @@ import * as rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { start } from 'elastic-apm-node';
+// import { start } from 'elastic-apm-node';
 import { AppModule } from './app.module';
 
-start();
+// start();
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, { logger: true });
