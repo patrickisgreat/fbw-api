@@ -13,13 +13,14 @@ export default () => ({
         database: process.env.DATABASE_DATABASE || 'fbw',
         username: process.env.DATABASE_USERNAME || 'fbw',
         password: envOrFile('DATABASE_PASSWORD', './secrets/db_password.txt'),
-        logging: process.env.DATABASE_LOGGING || 'error',
-        connectionLimit: parseInt(process.env.DATABASE_CONN_LIMIT) || 10,
-        replicas: process.env.DATABASE_READ_ONLY_HOSTS || '',
+        // logging: process.env.DATABASE_LOGGING || 'error',
+        // connectionLimit: parseInt(process.env.DATABASE_CONN_LIMIT) || 10,
+        // replicas: process.env.DATABASE_READ_ONLY_HOSTS || '',
     },
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
         port: parseInt(process.env.REDIS_PORT) || 6379,
+        password: process.env.REDIS_PASSWORD || '',
     },
     telex: {
         disableCleanup: envBool('TELEX_DISABLE_CLEANUP', true),

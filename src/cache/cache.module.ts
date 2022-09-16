@@ -13,6 +13,8 @@ import { CacheService } from './cache.service';
                 store: redisStore,
                 host: configService.get('redis.host'),
                 port: configService.get<number>('redis.port'),
+                auth_pass: configService.get('redis.password'),
+                db: configService.get('redis.db'),
             }),
         }),
     ],

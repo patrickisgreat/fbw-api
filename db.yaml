@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Resources:
+  SongsDatabase:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      DBInstanceClass: db.t3.micro
+      DBInstanceIdentifier: beefsupreme-api-db
+      PubliclyAccessible: true
+      StorageType: gp2
+      MasterUsername: fbw 
+      MasterUserPassword: B4bysn4k3s!!
+      Engine: mysql
+      EngineVersion: 8.0.28

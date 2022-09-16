@@ -1,0 +1,43 @@
+org: thenwalrus
+console: true
+service: beefsupreme-sim-api
+
+plugins:
+  - serverless-plugin-optimize
+  - serverless-offline
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 1024
+  region: us-east-1
+  environment:
+    AWS_ACTIVE: true
+    REGION: ${self:provider.region}
+    DATABASE_HOST: beefsupreme-api-db.cetpulswmqua.us-east-1.rds.amazonaws.com
+    DATABASE_DATABASE: fbw
+    DATABASE_USERNAME: fbw
+    DATABASE_PASSWORD: B4bysn4k3s!!
+    DATABASE_PORT: 3306
+    REDIS_HOST: redis-16653.c61.us-east-1-3.ec2.cloud.redislabs.com
+    REDIS_PORT: 16653
+    REDIS_PASSWORD: Q2cD5v0hsSE9jVrK2khmQCrkiC2frgoR
+
+functions:
+  main:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+          cors: true
+      - http:
+          method: ANY
+          path: /{proxy+}
+          cors: true
+custom:
+  optimize:
+    external: ['swagger-ui-dist']

@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as requestIp from 'request-ip';
-import * as helmet from 'helmet';
+// import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
@@ -21,7 +21,7 @@ async function bootstrap() {
     app.set('trust proxy', 1);
 
     // Protect against a multitude of attack scenarios
-    app.use(helmet());
+    // app.use(helmet());
 
     // CORS
     app.enableCors();
