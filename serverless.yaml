@@ -3,7 +3,6 @@ console: true
 service: beefsupreme-sim-api
 
 plugins:
-  - serverless-plugin-optimize
   - serverless-offline
 
 package:
@@ -29,6 +28,7 @@ provider:
 functions:
   main:
     handler: dist/lambda.handler
+    timeout: 60
     events:
       - http:
           method: ANY
@@ -38,6 +38,3 @@ functions:
           method: ANY
           path: /{proxy+}
           cors: true
-custom:
-  optimize:
-    external: ['swagger-ui-dist']

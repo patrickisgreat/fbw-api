@@ -12,9 +12,9 @@ let cachedServer: Server;
 
 function setupSwagger(app: INestApplication) {
     const options = new DocumentBuilder()
-        .setTitle('Nest Example')
-        .setDescription('Some api examples ')
-        .setVersion('1.0')
+        .setTitle('Beef Supreme Simulator API')
+        .setDescription('Now with More Beef than Ever')
+        .setVersion('0.1.1')
         .addBearerAuth()
         .build();
 
