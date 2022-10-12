@@ -1,15 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as requestIp from 'request-ip';
-import * as helmet from 'helmet';
+// import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { start } from 'elastic-apm-node';
+// import { start } from 'elastic-apm-node';
 import { AppModule } from './app.module';
 
-start();
+// start();
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, { logger: true });
@@ -21,7 +21,7 @@ async function bootstrap() {
     app.set('trust proxy', 1);
 
     // Protect against a multitude of attack scenarios
-    app.use(helmet());
+    // app.use(helmet());
 
     // CORS
     app.enableCors();
@@ -39,8 +39,8 @@ async function bootstrap() {
 
     // Swagger
     const options = new DocumentBuilder()
-        .setTitle('FlyByWire Simulations API')
-        .setDescription('The FlyByWire Simulations API description')
+        .setTitle('BeefSupreme Simulations API')
+        .setDescription('Now with more Beef than Ever!!')
         .setVersion('1.0')
         .addSecurity('jwt', {
             type: 'http',

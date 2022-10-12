@@ -1,4 +1,4 @@
-FROM node:12.8-alpine as builder
+FROM node:14-alpine as builder
 
 WORKDIR /app
 ENV NODE_ENV=development
@@ -16,7 +16,7 @@ RUN npm run build
 
 
 
-FROM node:12.8-alpine
+FROM node:14-alpine
 
 WORKDIR /app
 ENV NODE_ENV=production
@@ -24,10 +24,10 @@ ENV NODE_ENV=production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 
-EXPOSE 3000
+EXPOSE 8080
 
-HEALTHCHECK --interval=15s --timeout=3s --start-period=5s --retries=2 \
- CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health \
-  || exit 1
+# HEALTHCHECK --interval=15s --timeout=3s --start-period=5s --retries=2 \
+#  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health \
+#   || exit 1
 
 CMD [ "node", "dist/main.js" ]

@@ -28,6 +28,7 @@ import { GnssModule } from './gnss/gnss.module';
 import { CpdlcController } from './cpdlc/cpdlc.controller';
 import { CpdlcService } from './cpdlc/cpdlc.service';
 import { NotFoundExceptionFilter } from './utilities/not-found.filter';
+import { AcarsModule } from './acars/acars.module';
 
 @Module({
     imports: [
@@ -40,38 +41,39 @@ import { NotFoundExceptionFilter } from './utilities/not-found.filter';
                 const password = configService.get('database.password');
                 const database = configService.get('database.database');
                 const port = configService.get<number>('database.port');
-                const replicas = configService.get<string>('database.replicas').split(';').filter((x) => x !== '');
+                const type = 'mysql' as any;
+                // const replicas = configService.get<string>('database.replicas').split(';').filter((x) => x !== '');
 
-                if (replicas.length > 0) {
-                    return {
-                        type: 'mysql',
-                        replication: {
-                            master: {
-                                host: masterHost,
-                                port,
-                                username,
-                                password,
-                                database,
-                            },
-                            slaves: replicas.map((replica) => ({
-                                host: replica,
-                                port,
-                                username,
-                                password,
-                                database,
-                            })),
-                        },
-                        autoLoadEntities: true,
-                        synchronize: true,
-                        legacySpatialSupport: false,
-                        namingStrategy: new FbwNamingStrategy(),
-                        logging: configService.get('database.logging'),
-                        extra: { connectionLimit: configService.get<number>('database.connectionLimit') },
-                    };
-                }
+                // if (replicas.length > 0) {
+                //     return {
+                //         type: 'mysql',
+                //         replication: {
+                //             master: {
+                //                 host: masterHost,
+                //                 port,
+                //                 username,
+                //                 password,
+                //                 database,
+                //             },
+                //             slaves: replicas.map((replica) => ({
+                //                 host: replica,
+                //                 port,
+                //                 username,
+                //                 password,
+                //                 database,
+                //             })),
+                //         },
+                //         autoLoadEntities: true,
+                //         synchronize: true,
+                //         legacySpatialSupport: false,
+                //         namingStrategy: new FbwNamingStrategy(),
+                //         logging: configService.get('database.logging'),
+                //         extra: { connectionLimit: configService.get<number>('database.connectionLimit') },
+                //     };
+                // }
 
                 return {
-                    type: 'mysql',
+                    type,
                     host: masterHost,
                     port,
                     username,
@@ -81,8 +83,8 @@ import { NotFoundExceptionFilter } from './utilities/not-found.filter';
                     synchronize: true,
                     legacySpatialSupport: false,
                     namingStrategy: new FbwNamingStrategy(),
-                    logging: configService.get('database.logging'),
-                    extra: { connectionLimit: configService.get<number>('database.connectionLimit') },
+                    // logging: configService.get('database.logging'),
+                    // extra: { connectionLimit: configService.get<number>('database.connectionLimit') },
                 };
             },
         }),
@@ -117,6 +119,7 @@ import { NotFoundExceptionFilter } from './utilities/not-found.filter';
         GitVersionsModule,
         ChartsModule,
         GnssModule,
+        AcarsModule,
     ],
     controllers: [
         AppController,
